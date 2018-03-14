@@ -1,10 +1,10 @@
 try {
   timeout(time: 20, unit: 'MINUTES') {
-    def appName="${NAME}"
+    def appName="nodejs-mongodb-example"
     def project=""
     def tag="blue"
     def altTag="green"
-    def verbose="${VERBOSE}"
+    def verbose="false"
 
     node {
       project = env.PROJECT_NAME
