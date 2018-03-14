@@ -8,16 +8,16 @@ try {
 
     node {
       project = env.PROJECT_NAME
-      //stage("Initialize") {
-      //  sh "oc get route ${appName} -n ${project} -o jsonpath='{ .spec.to.name }' --loglevel=4 > activeservice"
-      //  activeService = readFile('activeservice').trim()
-      //  if (activeService == "${appName}-blue") {
-      //    tag = "green"
-      //    altTag = "blue"
-      //  }
-      //  sh "oc get route ${tag}-${appName} -n ${project} -o jsonpath='{ .spec.host }' --loglevel=4 > routehost"
-      //  routeHost = readFile('routehost').trim()
-      //}
+      stage("Initialize") {
+        sh "oc get route ${appName} -n ${project} -o jsonpath='{ .spec.to.name }' --loglevel=4 > activeservice"
+        activeService = readFile('activeservice').trim()
+        if (activeService == "${appName}-blue") {
+          tag = "green"
+          altTag = "blue"
+        }
+        sh "oc get route ${tag}-${appName} -n ${project} -o jsonpath='{ .spec.host }' --loglevel=4 > routehost"
+        routeHost = readFile('routehost').trim()
+      }
 
       stage("Build") {
         echo "building tag ${tag}"
